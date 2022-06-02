@@ -1,0 +1,36 @@
+{
+  "name": "chess-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npm run lint",
+    "lint:fix": "eslint --cache --ext .ts . --fix",
+    "lint": "eslint --cache --ext .ts .",
+    "server:watch": "ts-node-dev --respawn --transpile-only src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "js-chess-engine": "^1.0.2",
+    "nodemon": "^2.0.16",
+    "passport": "^0.6.0",
+    "passport-github": "^1.1.0",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.35",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "ts-node-dev": "^1.1.8"
+  }
+}
