@@ -1,40 +1,54 @@
 const { Router } = require('express')
 const router = Router();
-const passport = require('passport');
+const jwt = require("jsonwebtoken");
+const userService = require('./user.service')
+
 require('dotenv').config()
+const secret = process.env.JWT_SECRET;
 
 
-const  GitHubStrategy = require('passport-github').Strategy;
+router.get(
+    '/auth',
+    async (req, res) => {
+        try {
+            const { code } = req.query;
+            const data = await userService.getGitHubAccessToken(code);
+            const accessToken = userService.decodeAccessToken(data);
+            const gitHubUser = await userService.getUserGitHubProfileData(accessToken)
+            const candidate = await userService.getUser(gitHubUser.id);
 
+            if(!candidate){
+                const user = await userService.createUser(gitHubUser.id);
 
+            }
 
-passport.use(new GitHubStrategy({
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "http://localhost:4000/user/auth/github/callback"
-    },
-    function(accessToken, refreshToken, profile, cb) {
-         cb(null,profile)
+            const token = jwt.sign(gitHubUser, secret);
+
+            res.cookie('github-jwt',token, {
+                domain: 'localhost'
+            })
+
+            res.redirect('http://localhost:3000')
+        }catch (e){
+
+        }
+
     }
-));
+)
 
-passport.serializeUser(function(user, cb) {
-    cb(null, user);
-});
 
-passport.deserializeUser(function(obj, cb) {
-    cb(null, obj);
-});
+router.get('/',async (req, res) => {
+    try {
+        const token = req.cookies['github-jwt'];
+        const gitHubProfile = jwt.verify(token, secret);
+        const user = {...gitHubProfile};
+        res.json(user)
+    }catch (error){
+        res.send(null)
+    }
 
-router.get('/auth/github', passport.authenticate('github'));
+})
 
-router.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/', failureMessage: true ,assignProperty: 'profile'}),
-    function(req, res) {
-        // Successful authentication, redirect home.
 
-        console.log(req.profile);
-        res.json(req.profile)
-    });
 
 module.exports = router;
