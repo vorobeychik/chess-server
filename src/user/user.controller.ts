@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router();
 const jwt = require("jsonwebtoken");
-import {userService} from "./user.service";
+const userService = require("./user.service");
 
 require('dotenv').config()
 const secret = process.env.JWT_SECRET;

@@ -1,21 +1,14 @@
-import {chooseOppositeSide, chooseRandomSide, copyObject} from "./utils/utils";
-import {defaultHistory, GameState, History, Move, User} from "./types/types";
+import { Move, User} from "./types/types";
 const  mongoose =  require("mongoose");
-import { v4 as uuidv4 } from 'uuid';
-import {Player, Room, ServerState} from "./Moodels/Models";
+import {ServerState} from "./Moodels/Models";
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require("socket.io");
 const userController = require('./user/user.controller');
-const userService = require('./user/user.service');
-const jsChessEngine = require('js-chess-engine');
 import cookieParser  from 'cookie-parser';
-import {PlayerDTO} from "./dto/dtos";
-import {Socket} from "socket.io";
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const { move } = jsChessEngine
 require('dotenv').config()
 
 
