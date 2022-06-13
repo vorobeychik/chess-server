@@ -35,7 +35,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(session({ secret: '3123' }));
 app.use('/user', userController)
-
+app.use('',(req,res) => res.json(123) )
 
 const server = http.createServer(app);
 const io = new Server(server);
