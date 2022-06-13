@@ -1,1 +1,1 @@
-web: server:watch
+ web: node src/app.ts
