@@ -32,16 +32,20 @@ class UserService{
 
 
     async createUser(gitHubId){
-        return userModel.create({ gitHubId, rating: 1200 })
+        return userModel.create({ gitHubId, rating: 1200, inGame: '' })
     }
 
     async changeRating(gitHubId: number, amount: number){
-        return userModel.updateOne({id: gitHubId}, {$inc: {rating: amount}})
+        await userModel.updateOne({gitHubId: gitHubId}, {$inc: {rating: amount}})
     }
 
+    async enterGame(gitHubId: number,gameId: string){
+        await userModel.updateOne({gitHubId: gitHubId}, {$set: {inGame: gameId}})
+    }
 
-
-
+    async leaveGame(gitHubId: number){
+        await userModel.updateOne({gitHubId: gitHubId}, {$set: {inGame: ''}})
+    }
 }
 
 

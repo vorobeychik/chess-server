@@ -19,7 +19,6 @@ router.get(
 
             if(!candidate){
                 const user = await userService.createUser(gitHubUser.id);
-
             }
 
             const token = jwt.sign(gitHubUser, secret);
@@ -41,7 +40,8 @@ router.get('/',async (req, res) => {
     try {
         const token = req.cookies['github-jwt'];
         const gitHubProfile = jwt.verify(token, secret);
-        const user = {...gitHubProfile};
+        const userData = await userService.getUser(gitHubProfile.id);
+        const user = {...gitHubProfile,...JSON.parse(JSON.stringify(userData))};
         res.json(user)
     }catch (error){
         res.send(null)
