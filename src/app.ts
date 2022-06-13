@@ -42,7 +42,7 @@ const io = new Server(server);
 const serverState = new ServerState(io);
 
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', (socket) => {
 
     socket.on('createRoom',async (roomName: string, user: User) => {
         await socket.join(roomName);

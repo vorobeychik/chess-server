@@ -1,13 +1,12 @@
-import {defaultHistory, GameState, History, Move, PlayerPull, Sides, User} from "../types/types";
+import { GameState, History, Move, PlayerPull, Sides, User} from "../types/types";
 import {Socket} from "socket.io";
-import userService from "../user/user.service";
-import {chooseOppositeSide, chooseRandomSide, copyObject} from "../utils/utils";
-import {PlayerDTO} from "../dto/dtos";
+const userService = require("../user/user.service");
+import { chooseRandomSide, copyObject} from "../utils/utils";
 const jsChessEngine = require('js-chess-engine');
 const { move } = jsChessEngine;
 import { v4 as uuidv4 } from 'uuid';
 
-export  class Player{
+export class Player{
     constructor(public userData : User, public side: Sides,public socketId: string) {
     }
 
@@ -47,7 +46,7 @@ export class ServerState{
         this.io = io;
     }
 
-    async endBotGame(roomName: string, isWinner: boolean): void{
+    async endBotGame(roomName: string, isWinner: boolean): Promise<void>{
         const room = this.botRooms[roomName];
         await userService.leaveGame(+room.player.userData.id);
         this.io.to(room.player.socketId).emit(isWinner ? 'gameFinishedWin' : 'gameFinishedLose');
@@ -93,7 +92,7 @@ export class ServerState{
         this.sendGameState(roomName);
     }
 
-    async joinBotRoom( user: User, socket: Socket, botLevel: number): void{
+    async joinBotRoom( user: User, socket: Socket, botLevel: number): Promise<void>{
         const roomName = uuidv4();
         await socket.join(roomName);
         const player = new Player(user,'white',socket.id);
