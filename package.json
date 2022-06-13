@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "npm run lint",
+    "start": "node build/index.js",
+    "build": "tsc",
+    "postinstall": "npm run build",
     "lint:fix": "eslint --cache --ext .ts . --fix",
     "lint": "eslint --cache --ext .ts .",
     "server:watch": "ts-node-dev --respawn --transpile-only src/app.ts"

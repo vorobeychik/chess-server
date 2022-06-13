@@ -1,1 +1,1 @@
-web: ts-node-dev --respawn --transpile-only src/app.ts
+web: node build/index.js
