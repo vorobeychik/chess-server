@@ -23,7 +23,9 @@ router.get(
 
             const token = jwt.sign(gitHubUser, secret);
 
-            res.cookie('github-jwt',token)
+            res.cookie('github-jwt',token, {
+                domain: 'herokuapp.com'
+            })
 
             res.redirect('https://evo-chess.herokuapp.com')
         }catch (e){
