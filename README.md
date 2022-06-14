@@ -8,7 +8,7 @@ This project was created to evolution ts-bootcamp 2022
  - node js
  - express
  - MongoDB
- -JWT
+ - -JWT
  - JSchessEngine
  - EsLint
  - Pritier
