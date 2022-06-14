@@ -1,1 +1,1 @@
-web: node ./dist/app.js
+web: cross-env NODE_ENV=production  node ./dist/app.js

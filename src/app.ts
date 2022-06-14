@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 require('dotenv').config()
 
+console.log(process.env.NODE_ENV)
 
 const app = express();
 
@@ -18,7 +19,7 @@ const port = process.env.PORT || 4000;
 
 app.use(
     cors({
-        origin: ['http://localhost:3000'],
+        origin: ['http://localhost:3000','https://evo-chess.herokuapp.com/'],
         credentials: true,
     })
 )

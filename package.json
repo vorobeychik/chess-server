@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/app.js",
+    "start": "cross-env NODE_ENV=production  node ./dist/app.js",
     "build": "tsc",
     "postinstall": "npm run build",
     "lint:fix": "eslint --cache --ext .ts . --fix",
     "lint": "eslint --cache --ext .ts .",
-    "server:watch": "ts-node-dev --respawn --transpile-only src/app.ts"
+    "server:watch": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "engines": {
     "node": "14.17.6"
@@ -23,6 +23,7 @@
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
