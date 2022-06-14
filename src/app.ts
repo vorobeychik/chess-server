@@ -19,7 +19,7 @@ const port = process.env.PORT || 4000;
 
 app.use(
     cors({
-        origin: 'https://evo-chess.herokuapp.com/',
+        origin: 'https://evo-chess.herokuapp.com',
         credentials: true,
     })
 )
