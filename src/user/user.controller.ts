@@ -27,7 +27,7 @@ router.get(
                 domain: 'localhost'
             })
 
-            res.redirect('http://localhost:3000')
+            res.redirect('https://evo-chess.herokuapp.com')
         }catch (e){
 
         }
