@@ -7,6 +7,7 @@ This project was created to evolution ts-bootcamp 2022
  - TypeScript
  - node js
  - express
+ - MongoDB
  - EsLint
  - Pritier
 
